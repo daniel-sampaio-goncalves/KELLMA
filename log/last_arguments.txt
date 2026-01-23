@@ -1,0 +1,34 @@
+
+Master Keyword:
+    tbr1
+
+Textsearch Keywords: 
+    neuron,Brain,Cortex
+
+Master Keyword (RAG): 
+    tbr1 gene
+
+Semantic keywords (RAG):
+    neuron,cortex,brain,marker for neurons,neural precursors,progenitor,neuronal lineage marker,expression
+
+LLM keywords:
+    Neurons - Markers for neurons - Brain structures
+
+LLM context:  
+    cell type expression, genes related or involved to neuronal processes, neuronal processes (even if broader), brain structures, or any biological process closely related
+
+llm number of approvals: 
+    2
+
+       
+threshold score (RAG):
+    0.46
+
+Run in multithreadded batch mode : 
+    True
+
+Number of batches per thread : 
+    10
+
+namesuffix for saved documents: 
+    st

@@ -244,6 +244,13 @@ ollama  pull  qwen3:32b
 ollama  pull  gemma3:27b
 ollama  pull  deepseek-r1:32b
 ```
+Set some a optional flag before running ollama:
+```ps1
+# increase the request queue size for high‑concurrency workloads
+$env:OLLAMA_MAX_QUEUE= "4096" 
+# launch ollama
+ollama serve
+```
 ### 4. Download and extract PMC articles
 For licensing reasons, PMC files will not be shared on GitHub. A free, open text‑mining dataset is available directly from [PubMed](https://pmc.ncbi.nlm.nih.gov/tools/textmining/) through public servers. Follow their instructions to download and extract the data. The current version was tested on curated `PMC*.xml` files containing Unicode characters. Articles can be placed in a single folder (`PMC/*.xml`) or organized across multiple subfolders (e.g., `PMC/FOLDER_1/*.xml`, `PMC/FOLDER_2/*.xml`, `PMC/FOLDER_.../*.xml`).
 
@@ -291,8 +298,18 @@ On the test system used (Intel i9-10900K CPU, Nvidia RTX 3090 GPU, 128GB DDR4 RA
 | Do I need a GPU with a lot of VRAM to run this? | No. Although this pipeline hasn’t been fully tested on CPU‑only setups, Ollama can run models on CPU if you have enough RAM at a significant performance cost. Any GPU supported by Ollama will in theory work and will automatically split the load between GPU and CPU when VRAM is limited. |
 | I don't have any results / The pipeline ended with “No articles found matching the keyword search” | This simply means no articles matched your query. Either the keyword doesn’t appear in the dataset, or your XML format isn’t being parsed correctly. Check the error logs for more details. |
 | It's taking forever | LLM inference is slow, and GPU performance varies widely. You can reduce runtime by choosing a *rare* master keyword instead of a common one. With very large datasets, always pre‑filter aggressively using keyword searches as later stages (RAG/LLM inference) are far more expensive. The algorithm looks for the master keyword **plus at least one additional keyword**, so selecting a rare master keyword dramatically reduces the search space. For example, when looking for *Sox13* expression in muscle, avoid using *muscle* as the master keyword. Instead, use *sox13* as the master keyword and *muscle*,*expression* as secondary keywords, since far fewer articles mention *Sox13*.|
+
 ## 🤝 Contributing
 *KELLMA* is an open‑source project I whipped up during some downtime to help myself and my lab colleagues screen through literature more efficiently. It’s not my full‑time job, so feel free to fork the repository, modify the app, and experiment with it.
+
+|Next Milestones|
+|-----------|
+| Redesign embedding requests to Ollama for faster throughput |
+| Add multi‑GPU / multi‑instance Ollama support |
+| Improve file‑loading performance |
+| Implement sequential job queueing |
+| Expand parsing filters (author, date, journal, etc.) |
+| Support bioRxiv text files |
 
 ## 📜 License
 Apache 2.0 – see the [LICENSE](LICENSE) file for details.

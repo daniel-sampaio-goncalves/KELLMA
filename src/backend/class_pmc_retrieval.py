@@ -54,7 +54,7 @@ class PmcRetrievalPipeline:
             llm_keywords_for_approval: list[str]= ["Neurons - Markers for neurons - Brain structures",
                                 "cell type expression, genes related or involved to neuronal processes, neuronal processes (even if broader), brain structures, or any biological process closely related"],
             llm_approvals: int=2,
-            run_embedding_in_multithreaded_batches:bool=False,
+            run_embedding_in_multithreaded_batches:str="False",
             number_of_batches_to_run_embedding: int=10,
             suffix_for_saved_docs=""
         ) -> None:
@@ -99,7 +99,7 @@ class PmcRetrievalPipeline:
         else:
             self.keywords_for_rag:  list[str]=keywords_for_rag
         
-        self.run_embedding_in_multithreaded_batches: bool=run_embedding_in_multithreaded_batches
+        self.run_embedding_in_multithreaded_batches: bool={"True": True, "False": False}[run_embedding_in_multithreaded_batches] #change arguments from text to bool
         self.number_of_batches_to_run_embedding: int= number_of_batches_to_run_embedding
         self.suffix_for_saved_docs: str= suffix_for_saved_docs
 
